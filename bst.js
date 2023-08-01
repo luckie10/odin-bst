@@ -3,10 +3,41 @@ const Node = (data, left = null, right = null) => {
 };
 
 const Tree = (array) => {
+  // Unique and sort array
+  const unqArray = [...new Set(array.sort((a, b) => a - b))];
+
+  const prettyPrint = (node, prefix = "", isLeft = true) => {
+    if (node === null) {
+      return;
+    }
+
+    if (node.right !== null) {
+      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+    }
+
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+    if (node.left !== null) {
+      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+    }
+  };
+
+  const buildTree = (array, start = 0, end = array.length - 1) => {
+    if (start > end) return null;
+
+    const mid = parseInt((start + end) / 2);
+    const root = Node(array[mid]);
+
+    root.left = buildTree(array, start, mid - 1);
+    root.right = buildTree(array, mid + 1, end);
+
+    return root;
+  };
+
   const root = buildTree(unqArray);
 
   return {
     root,
+    prettyPrint,
   };
 };
 
