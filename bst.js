@@ -35,9 +35,19 @@ const Tree = (array) => {
     }
   };
 
+  const insert = (root, value) => {
+    if (root === null) return Node(value);
+
+    if (value < root.data) root.left = insert(root.left, value);
+    else if (value > root.data) root.right = insert(root.right, value);
+
+    return root;
+  };
+
   return {
     root,
     prettyPrint,
+    insert,
   };
 };
 
