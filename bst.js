@@ -44,10 +44,49 @@ const Tree = (array) => {
     return root;
   };
 
+  const deleteNode = (root, value) => {
+    if (root === null) return root;
+
+    if (value < root.data) {
+      root.left = deleteNode(root.left, value);
+      return root;
+    } else if (value > root.data) {
+      root.right = deleteNode(root.right, value);
+      return root;
+    }
+
+    // delete if one/both children are empty
+    // by returning the opposite child from what we test for
+    if (root.left === null) return root.right;
+    else if (root.right === null) return root.left;
+    // delete if both children exist
+    else {
+      // climb down the left side of the right branch
+      // to find lowest number in branch as successor
+      let successorParent = root;
+      let successor = root.right;
+      while (successor.left !== null) {
+        successorParent = successor;
+        successor = successor.left;
+      }
+
+      // The successor can only have a right child, therefore if it exist
+      // we will replace the successor with its child.
+      if (successor === root) successorParent.right = successor.right;
+      else successorParent.left = successor.right;
+
+      // Replace the value of the node we are deleting with the successor value
+      root.data = successor.data;
+    }
+
+    return root;
+  };
+
   return {
     root,
     prettyPrint,
     insert,
+    delete: deleteNode,
   };
 };
 
