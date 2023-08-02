@@ -82,11 +82,26 @@ const Tree = (array) => {
     return root;
   };
 
+  const find = (root, value) => {
+    if (root === null) return root;
+
+    if (value < root.data) {
+      root.left = find(root.left, value);
+      return root;
+    } else if (value > root.data) {
+      root.right = find(root.right, value);
+      return root;
+    }
+
+    return root;
+  };
+
   return {
     root,
     prettyPrint,
     insert,
     delete: deleteNode,
+    find,
   };
 };
 
