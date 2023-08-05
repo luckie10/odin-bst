@@ -83,17 +83,13 @@ const Tree = (array) => {
   };
 
   const find = (root, value) => {
-    if (root === null) return root;
+    if (root === null || root.data === value) return root;
 
     if (value < root.data) {
-      root.left = find(root.left, value);
-      return root;
+      return find(root.left, value);
     } else if (value > root.data) {
-      root.right = find(root.right, value);
-      return root;
+      return find(root.right, value);
     }
-
-    return root;
   };
 
   return {
