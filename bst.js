@@ -92,12 +92,73 @@ const Tree = (array) => {
     }
   };
 
+  const levelOrder = (root, fn) => {
+    return levelOrderIterative(root, fn);
+    // return levelOrderRecursive(root, fn);
+  };
+
+  const levelOrderIterative = (root, fn) => {
+    if (!root) return;
+
+    let queue = [];
+    let array = [];
+
+    queue.push(root);
+
+    while (queue.length > 0) {
+      let first = queue.shift();
+
+      if (fn) fn(first.data);
+      else array.push(first.data);
+
+      if (first.left) queue.push(first.left);
+      if (first.right) queue.push(first.right);
+    }
+
+    if (array.length > 0) return array;
+  };
+
+  const levelOrderRecursive = (root, fn) => {
+    if (!root) return;
+
+    let array = [];
+
+    const height = (root) => {
+      if (!root) return 0;
+
+      const lHeight = height(root.left);
+      const rHeight = height(root.right);
+
+      if (lHeight > rHeight) return lHeight + 1;
+      else return rHeight + 1;
+    };
+
+    const currentLevel = (root, level) => {
+      if (!root) return;
+      if (level === 1) {
+        if (fn) fn(root.data);
+        else array.push(root.data);
+      } else if (level > 1) {
+        currentLevel(root.left, level - 1);
+        currentLevel(root.right, level - 1);
+      }
+    };
+
+    const h = height(root);
+    for (let i = 1; i <= h; i++) {
+      currentLevel(root, i);
+    }
+
+    if (array.length > 0) return array;
+  };
+
   return {
     root,
     prettyPrint,
     insert,
     delete: deleteNode,
     find,
+    levelOrder,
   };
 };
 
