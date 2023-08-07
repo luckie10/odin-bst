@@ -92,12 +92,12 @@ const Tree = (array) => {
     }
   };
 
-  const levelOrder = (root, fn) => {
+  const levelOrder = (root, fn = null) => {
     return levelOrderIterative(root, fn);
     // return levelOrderRecursive(root, fn);
   };
 
-  const levelOrderIterative = (root, fn) => {
+  const levelOrderIterative = (root, fn = null) => {
     if (!root) return;
 
     let queue = [];
@@ -118,7 +118,7 @@ const Tree = (array) => {
     if (array.length > 0) return array;
   };
 
-  const levelOrderRecursive = (root, fn) => {
+  const levelOrderRecursive = (root, fn = null) => {
     if (!root) return;
 
     let array = [];
