@@ -152,6 +152,18 @@ const Tree = (array) => {
     if (array.length > 0) return array;
   };
 
+  // Inorder - left, root, right
+  const inorder = (node, callback = null, result = []) => {
+    if (!node) return;
+    if (node.left) inorder(node.left, callback, result);
+    callback ? callback(node) : result.push(node.data);
+    if (node.right) inorder(node.right, callback, result);
+    if (result.length > 0) return result;
+  };
+
+  // Preorder - root, left, right
+  // PostOrder - left, right, root
+
   return {
     root,
     prettyPrint,
@@ -159,6 +171,7 @@ const Tree = (array) => {
     delete: deleteNode,
     find,
     levelOrder,
+    inorder,
   };
 };
 
