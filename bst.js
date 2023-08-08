@@ -149,15 +149,25 @@ const Tree = (array) => {
   };
 
   // Inorder - left, root, right
+  // Done recursively
   const inorder = (node, callback = null, result = []) => {
     if (!node) return;
     if (node.left) inorder(node.left, callback, result);
     callback ? callback(node) : result.push(node.data);
     if (node.right) inorder(node.right, callback, result);
-    if (result.length > 0) return result;
+    if (result.length) return result;
   };
 
   // Preorder - root, left, right
+  // TODO: Do it with stack - last in, first out
+  const preorder = (node, callback = null, result = []) => {
+    if (!node) return;
+    callback ? callback(node) : result.push(node.data);
+    if (node.left) preorder(node.left, callback, result);
+    if (node.right) preorder(node.right, callback, result);
+    if (result.length) return result;
+  };
+
   // PostOrder - left, right, root
 
   return {
@@ -168,6 +178,7 @@ const Tree = (array) => {
     find,
     levelOrder,
     inorder,
+    preorder,
   };
 };
 
