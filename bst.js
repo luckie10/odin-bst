@@ -107,7 +107,7 @@ const Tree = (array) => {
 
     while (queue.length) {
       let firstNode = queue.shift();
-      callback ? callback(firstNode.data) : array.push(firstNode.data);
+      callback ? callback(firstNode) : array.push(firstNode.data);
       if (firstNode.left) queue.push(firstNode.left);
       if (firstNode.right) queue.push(firstNode.right);
     }
@@ -133,7 +133,7 @@ const Tree = (array) => {
     const currentLevel = (node, level) => {
       if (!node) return;
       if (level === 1) {
-        callback ? callback(node.data) : array.push(node.data);
+        callback ? callback(node) : array.push(node.data);
       } else if (level > 1) {
         currentLevel(node.left, level - 1);
         currentLevel(node.right, level - 1);
