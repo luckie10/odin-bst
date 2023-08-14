@@ -169,6 +169,33 @@ const Tree = (array) => {
   };
 
   // PostOrder - left, right, root
+  const postorder = (node, callback = null, result = []) => {
+    if (!node) return;
+
+    let stack = [];
+    let prev = null;
+
+    stack.push(node);
+
+    while (stack.length) {
+      let currNode = stack.at(-1);
+      if (
+        (!currNode.left && !currNode.right) || // if currNode is a leaf
+        // or if the prev poped nodes were branches of currNode
+        currNode.right === prev ||
+        currNode.left === prev
+      ) {
+        callback ? callback(currNode) : result.push(currNode.data);
+        prev = currNode;
+        stack.pop();
+      } else {
+        if (currNode.right) stack.push(currNode.right);
+        if (currNode.left) stack.push(currNode.left);
+      }
+    }
+
+    if (result.length) return result;
+  };
 
   return {
     root,
@@ -179,6 +206,7 @@ const Tree = (array) => {
     levelOrder,
     inorder,
     preorder,
+    postorder,
   };
 };
 
