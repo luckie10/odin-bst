@@ -149,12 +149,36 @@ const Tree = (array) => {
   };
 
   // Inorder - left, root, right
-  // Done recursively
   const inorder = (node, callback = null, result = []) => {
+    // return inorderRecursive(node, callback, result)
+    return inorderItterative(node, callback, result);
+  };
+
+  const inorderRecursive = (node, callback = null, result = []) => {
     if (!node) return;
     if (node.left) inorder(node.left, callback, result);
     callback ? callback(node) : result.push(node.data);
     if (node.right) inorder(node.right, callback, result);
+    if (result.length) return result;
+  };
+
+  const inorderItterative = (node, callback = null, result = []) => {
+    if (!node) return;
+
+    let stack = [];
+    let currNode = node;
+
+    while (stack.length || currNode) {
+      if (currNode) {
+        stack.push(currNode);
+        currNode = currNode.left;
+      } else {
+        currNode = stack.pop();
+        callback ? callback(currNode) : result.push(currNode.data);
+        currNode = currNode.right;
+      }
+    }
+
     if (result.length) return result;
   };
 
@@ -163,6 +187,7 @@ const Tree = (array) => {
     // return preorderRecursive(node, callback, result)
     return preorderItterative(node, callback, result);
   };
+
   const preorderRecursive = (node, callback = null, result = []) => {
     if (!node) return;
     callback ? callback(node) : result.push(node.data);
