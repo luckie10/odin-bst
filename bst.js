@@ -170,6 +170,19 @@ const Tree = (array) => {
 
   // PostOrder - left, right, root
   const postorder = (node, callback = null, result = []) => {
+    return postorderRecursive(node, callback, result);
+    // return postorderItterative(node, callback, result)
+  };
+
+  const postorderRecursive = (node, callback = null, result = []) => {
+    if (!node) return;
+    if (node.left) postorderRecursive(node.left, callback, result);
+    if (node.right) postorderRecursive(node.right, callback, result);
+    callback ? callback(node) : result.push(node.data);
+    if (result.length) return result;
+  };
+
+  const postorderItterative = (node, callback = null, result = []) => {
     if (!node) return;
 
     let stack = [];
