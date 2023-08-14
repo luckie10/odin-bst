@@ -159,13 +159,30 @@ const Tree = (array) => {
   };
 
   // Preorder - root, left, right
-  // TODO: Do it with stack - last in, first out
   const preorder = (node, callback = null, result = []) => {
+    // return preorderRecursive(node, callback, result)
+    return preorderItterative(node, callback, result);
+  };
+  const preorderRecursive = (node, callback = null, result = []) => {
     if (!node) return;
     callback ? callback(node) : result.push(node.data);
     if (node.left) preorder(node.left, callback, result);
     if (node.right) preorder(node.right, callback, result);
     if (result.length) return result;
+  };
+
+  const preorderItterative = (node, callback = null, result = []) => {
+    if (!node) return;
+
+    let stack = [];
+
+    stack.push(node);
+    while (stack.length) {
+      let currNode = stack.pop();
+      callback ? callback(currNode) : result.push(currNode.data);
+      if (currNode.right) stack.push(currNode.right);
+      if (currNode.left) stack.push(currNode.left);
+    }
   };
 
   // PostOrder - left, right, root
