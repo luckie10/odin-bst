@@ -101,18 +101,18 @@ const Tree = (array) => {
     if (!node) return;
 
     let queue = [];
-    let array = [];
+    let result = [];
 
     queue.push(node);
 
     while (queue.length) {
       let firstNode = queue.shift();
-      callback ? callback(firstNode) : array.push(firstNode.data);
+      callback ? callback(firstNode) : result.push(firstNode.data);
       if (firstNode.left) queue.push(firstNode.left);
       if (firstNode.right) queue.push(firstNode.right);
     }
 
-    if (array.length > 0) return array;
+    if (result.length) return result;
   };
 
   const levelOrderRecursive = (node, callback = null) => {
