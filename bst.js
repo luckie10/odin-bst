@@ -20,7 +20,7 @@ const Tree = (array) => {
 
   const root = buildTree(unqArray);
 
-  const prettyPrint = (node, prefix = "", isLeft = true) => {
+  const prettyPrint = (node = root, prefix = "", isLeft = true) => {
     if (node === null) {
       return;
     }
@@ -35,7 +35,7 @@ const Tree = (array) => {
     }
   };
 
-  const insert = (node, value) => {
+  const insert = (value, node = root) => {
     if (node === null) return Node(value);
 
     if (value < node.data) node.left = insert(node.left, value);
@@ -44,7 +44,7 @@ const Tree = (array) => {
     return node;
   };
 
-  const deleteNode = (node, value) => {
+  const deleteNode = (value, node = root) => {
     if (node === null) return node;
 
     if (value < node.data) {
@@ -82,7 +82,7 @@ const Tree = (array) => {
     return node;
   };
 
-  const find = (node, value) => {
+  const find = (value, node = root) => {
     if (node === null || node.data === value) return node;
 
     if (value < node.data) {
@@ -92,12 +92,12 @@ const Tree = (array) => {
     }
   };
 
-  const levelOrder = (node, callback = null) => {
+  const levelOrder = (node = root, callback = null) => {
     // return levelOrderIterative(node, callback);
     return levelOrderRecursive(node, callback);
   };
 
-  const levelOrderIterative = (node, callback = null) => {
+  const levelOrderIterative = (node = root, callback = null) => {
     if (!node) return;
 
     let queue = [];
@@ -115,7 +115,7 @@ const Tree = (array) => {
     if (result.length) return result;
   };
 
-  const levelOrderRecursive = (node, callback = null) => {
+  const levelOrderRecursive = (node = root, callback = null) => {
     if (!node) return;
 
     let array = [];
@@ -139,12 +139,12 @@ const Tree = (array) => {
   };
 
   // Inorder - left, root, right
-  const inorder = (node, callback = null, result = []) => {
+  const inorder = (node = root, callback = null, result = []) => {
     // return inorderRecursive(node, callback, result)
     return inorderItterative(node, callback, result);
   };
 
-  const inorderRecursive = (node, callback = null, result = []) => {
+  const inorderRecursive = (node = root, callback = null, result = []) => {
     if (!node) return;
     if (node.left) inorder(node.left, callback, result);
     callback ? callback(node) : result.push(node.data);
@@ -152,7 +152,7 @@ const Tree = (array) => {
     if (result.length) return result;
   };
 
-  const inorderItterative = (node, callback = null, result = []) => {
+  const inorderItterative = (node = root, callback = null, result = []) => {
     if (!node) return;
 
     let stack = [];
@@ -173,12 +173,12 @@ const Tree = (array) => {
   };
 
   // Preorder - root, left, right
-  const preorder = (node, callback = null, result = []) => {
+  const preorder = (node = root, callback = null, result = []) => {
     // return preorderRecursive(node, callback, result)
     return preorderItterative(node, callback, result);
   };
 
-  const preorderRecursive = (node, callback = null, result = []) => {
+  const preorderRecursive = (node = root, callback = null, result = []) => {
     if (!node) return;
     callback ? callback(node) : result.push(node.data);
     if (node.left) preorder(node.left, callback, result);
@@ -186,7 +186,7 @@ const Tree = (array) => {
     if (result.length) return result;
   };
 
-  const preorderItterative = (node, callback = null, result = []) => {
+  const preorderItterative = (node = root, callback = null, result = []) => {
     if (!node) return;
 
     let stack = [];
@@ -201,12 +201,12 @@ const Tree = (array) => {
   };
 
   // PostOrder - left, right, root
-  const postorder = (node, callback = null, result = []) => {
+  const postorder = (node = root, callback = null, result = []) => {
     return postorderRecursive(node, callback, result);
     // return postorderItterative(node, callback, result)
   };
 
-  const postorderRecursive = (node, callback = null, result = []) => {
+  const postorderRecursive = (node = root, callback = null, result = []) => {
     if (!node) return;
     if (node.left) postorderRecursive(node.left, callback, result);
     if (node.right) postorderRecursive(node.right, callback, result);
@@ -214,7 +214,7 @@ const Tree = (array) => {
     if (result.length) return result;
   };
 
-  const postorderItterative = (node, callback = null, result = []) => {
+  const postorderItterative = (node = root, callback = null, result = []) => {
     if (!node) return;
 
     let stack = [];
@@ -242,22 +242,22 @@ const Tree = (array) => {
     if (result.length) return result;
   };
 
-  const height = (node) => {
+  const height = (node = root) => {
     if (!node) return -1;
     return Math.max(height(node.left), height(node.right)) + 1;
   };
 
-  const depth = (root, node, level = 0) => {
-    if (!root) return 0;
+  const depth = (node, rootNode = root, level = 0) => {
+    if (!rootNode) return 0;
     if (!node) return;
-    if (root.data === node.data) return level;
+    if (rootNode.data === node.data) return level;
 
-    return node.data < root.data
-      ? depth(root.left, node, level + 1)
-      : depth(root.right, node, level + 1);
+    return node.data < rootNode.data
+      ? depth(rootNode.left, node, level + 1)
+      : depth(rootNode.right, node, level + 1);
   };
 
-  const isBalanced = (node) => {
+  const isBalanced = (node = root) => {
     if (!node) return true;
 
     const lHeight = height(node.left);
