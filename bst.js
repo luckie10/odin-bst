@@ -247,6 +247,16 @@ const Tree = (array) => {
     return Math.max(height(node.left), height(node.right)) + 1;
   };
 
+  const depth = (root, node, level = 0) => {
+    if (!root) return 0;
+    if (!node) return;
+    if (root.data === node.data) return level;
+
+    return node.data < root.data
+      ? depth(root.left, node, level + 1)
+      : depth(root.right, node, level + 1);
+  };
+
   return {
     root,
     prettyPrint,
@@ -258,6 +268,7 @@ const Tree = (array) => {
     preorder,
     postorder,
     height,
+    depth,
   };
 };
 
