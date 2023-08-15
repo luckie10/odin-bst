@@ -273,6 +273,9 @@ const Tree = (array) => {
     return false;
   };
 
+  const rebalance = (node = root) =>
+    isBalanced(node) ? node : buildTree(inorder());
+
   return {
     root,
     prettyPrint,
@@ -286,6 +289,7 @@ const Tree = (array) => {
     height,
     depth,
     isBalanced,
+    rebalance,
   };
 };
 
