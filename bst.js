@@ -93,8 +93,8 @@ const Tree = (array) => {
   };
 
   const levelOrder = (node, callback = null) => {
-    return levelOrderIterative(node, callback);
-    // return levelOrderRecursive(node, callback);
+    // return levelOrderIterative(node, callback);
+    return levelOrderRecursive(node, callback);
   };
 
   const levelOrderIterative = (node, callback = null) => {
@@ -119,16 +119,6 @@ const Tree = (array) => {
     if (!node) return;
 
     let array = [];
-
-    const height = (node) => {
-      if (!node) return 0;
-
-      const lHeight = height(node.left);
-      const rHeight = height(node.right);
-
-      if (lHeight > rHeight) return lHeight + 1;
-      else return rHeight + 1;
-    };
 
     const currentLevel = (node, level) => {
       if (!node) return;
@@ -252,6 +242,11 @@ const Tree = (array) => {
     if (result.length) return result;
   };
 
+  const height = (node) => {
+    if (!node) return -1;
+    return Math.max(height(node.left), height(node.right)) + 1;
+  };
+
   return {
     root,
     prettyPrint,
@@ -262,6 +257,7 @@ const Tree = (array) => {
     inorder,
     preorder,
     postorder,
+    height,
   };
 };
 
