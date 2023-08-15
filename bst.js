@@ -257,6 +257,22 @@ const Tree = (array) => {
       : depth(root.right, node, level + 1);
   };
 
+  const isBalanced = (node) => {
+    if (!node) return true;
+
+    const lHeight = height(node.left);
+    const rHeight = height(node.right);
+
+    if (
+      Math.abs(lHeight - rHeight) <= 1 &&
+      isBalanced(node.left) &&
+      isBalanced(node.right)
+    )
+      return true;
+
+    return false;
+  };
+
   return {
     root,
     prettyPrint,
@@ -269,6 +285,7 @@ const Tree = (array) => {
     postorder,
     height,
     depth,
+    isBalanced,
   };
 };
 
