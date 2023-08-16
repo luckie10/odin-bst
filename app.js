@@ -15,7 +15,7 @@ console.log("Post order:", tree.postorder());
 console.log("In order:", tree.inorder());
 
 for (let i = 0; i < 5; i++) {
-  tree.insert(generateRandomNumber);
+  tree.insert(generateRandomNumber());
 }
 
 console.log("Balanced: ", tree.isBalanced());
