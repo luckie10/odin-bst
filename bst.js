@@ -198,6 +198,8 @@ const Tree = (array) => {
       if (currNode.right) stack.push(currNode.right);
       if (currNode.left) stack.push(currNode.left);
     }
+
+    if (result.length) return result;
   };
 
   // PostOrder - left, right, root
