@@ -17,7 +17,7 @@ const Tree = (array) => {
     return root;
   };
 
-  const root = buildTree(unqArray);
+  let root = buildTree(unqArray);
 
   const prettyPrint = (node = root, prefix = "", isLeft = true) => {
     if (node === null) {
@@ -275,7 +275,7 @@ const Tree = (array) => {
   };
 
   const rebalance = (node = root) =>
-    isBalanced(node) ? node : buildTree(inorder());
+    isBalanced(node) ? node : (root = buildTree(inorder()));
 
   return {
     root,
