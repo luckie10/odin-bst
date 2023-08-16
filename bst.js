@@ -130,7 +130,7 @@ const Tree = (array) => {
       }
     };
 
-    const h = height(node);
+    const h = height(node) + 1;
     for (let i = 1; i <= h; i++) {
       currentLevel(node, i);
     }
