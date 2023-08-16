@@ -3,7 +3,6 @@ const Node = (data, left = null, right = null) => {
 };
 
 const Tree = (array) => {
-  // Unique and sort array
   const unqArray = [...new Set(array.sort((a, b) => a - b))];
 
   const buildTree = (array, start = 0, end = array.length - 1) => {
@@ -38,8 +37,8 @@ const Tree = (array) => {
   const insert = (value, node = root) => {
     if (node === null) return Node(value);
 
-    if (value < node.data) node.left = insert(node.left, value);
-    else if (value > node.data) node.right = insert(node.right, value);
+    if (value < node.data) node.left = insert(value, node.left);
+    else if (value > node.data) node.right = insert(value, node.right);
 
     return node;
   };
@@ -48,10 +47,10 @@ const Tree = (array) => {
     if (node === null) return node;
 
     if (value < node.data) {
-      node.left = deleteNode(node.left, value);
+      node.left = deleteNode(value, node.left);
       return node;
     } else if (value > node.data) {
-      node.right = deleteNode(node.right, value);
+      node.right = deleteNode(value, node.right);
       return node;
     }
 
@@ -86,9 +85,9 @@ const Tree = (array) => {
     if (node === null || node.data === value) return node;
 
     if (value < node.data) {
-      return find(node.left, value);
+      return find(value, node.left);
     } else if (value > node.data) {
-      return find(node.right, value);
+      return find(value, node.right);
     }
   };
 
